@@ -19,6 +19,14 @@ public final class MarvelCharacter {
         return new Builder();
     }
 
+    public static Builder builder(final MarvelCharacter character) {
+        return builder()
+            .withId(character.id)
+            .withName(character.getName())
+            .withDescription(character.description)
+            .withThumbNail(character.thumbnail);
+    }
+
     public Long getId() {
         return id;
     }

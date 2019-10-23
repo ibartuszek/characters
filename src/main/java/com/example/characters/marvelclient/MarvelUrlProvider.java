@@ -1,4 +1,4 @@
-package com.example.characters.service;
+package com.example.characters.marvelclient;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

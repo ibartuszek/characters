@@ -1,4 +1,4 @@
-package com.example.characters.service;
+package com.example.characters.marvelclient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +19,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @Component
-public class CharactersProxy {
+public class MarvelClient {
 
     private static final String REQUEST_URL = "https://gateway.marvel.com/v1/public/characters";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CharactersProxy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarvelClient.class);
 
     private final MarvelUrlProvider marvelUriBuilder;
 
@@ -33,7 +33,7 @@ public class CharactersProxy {
     @Value("${marvel.characters.limit:100}")
     private int limit;
 
-    public CharactersProxy(final MarvelUrlProvider marvelUriBuilder) {
+    public MarvelClient(final MarvelUrlProvider marvelUriBuilder) {
         this.marvelUriBuilder = marvelUriBuilder;
     }
 
