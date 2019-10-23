@@ -2,9 +2,15 @@ package com.example.characters.domain;
 
 import java.util.Objects;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "Data object of a thumbnail picture")
 public final class ThumbNail {
 
+    @ApiModelProperty(notes = "Path to the thumbnail", example = "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16")
     private final String path;
+    @ApiModelProperty(notes = "Extension of the thumbnail", example = "jpg")
     private final String extension;
 
     private ThumbNail(final Builder builder) {
