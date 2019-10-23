@@ -22,18 +22,23 @@ public class MarvelUrlProvider {
     private String privateKey;
 
     public String provide(final String url, final int timeStamp, final Map<String, Object> additionalUrlParameters) {
-        UriComponentsBuilder builder = UriComponentsBuilder
-            .fromUriString(url);
-
+        UriComponentsBuilder builder = createBaseUriComponentFromUrl(url);
         for (final Map.Entry current : additionalUrlParameters.entrySet()) {
             builder.queryParam((String) current.getKey(), current.getValue());
         }
+        addStandardParameters(timeStamp, builder);
+        return builder.toUriString();
+    }
 
+    private UriComponentsBuilder createBaseUriComponentFromUrl(final String url) {
+        return UriComponentsBuilder
+            .fromUriString(url);
+    }
+
+    private void addStandardParameters(final int timeStamp, final UriComponentsBuilder builder) {
         builder.queryParam("ts", timeStamp)
             .queryParam("apikey", publicKey)
             .queryParam("hash", getHash(timeStamp));
-
-        return builder.toUriString();
     }
 
     private String getHash(final int timeStamp) {
@@ -46,6 +51,12 @@ public class MarvelUrlProvider {
             throw new IllegalArgumentException("No such algorithm: " + ALGORITHM);
         }
         return hash;
+    }
+
+    public String provide(final String url, final int timeStamp) {
+        UriComponentsBuilder builder = createBaseUriComponentFromUrl(url);
+        addStandardParameters(timeStamp, builder);
+        return builder.toUriString();
     }
 
 }

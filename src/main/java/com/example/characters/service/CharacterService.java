@@ -6,15 +6,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.characters.domain.MarvelCharacter;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 @Service
-public class CharacterIdsService {
+public class CharacterService {
 
     private final CharactersProxy charactersProxy;
 
-    public CharacterIdsService(final CharactersProxy charactersProxy) {
+    public CharacterService(final CharactersProxy charactersProxy) {
         this.charactersProxy = charactersProxy;
     }
 
@@ -32,4 +35,12 @@ public class CharacterIdsService {
         return ids;
     }
 
+    public MarvelCharacter getCharacterById(final String id) {
+        JsonObject object = charactersProxy.findById(id)
+            .get("data").getAsJsonObject()
+            .get("results").getAsJsonArray()
+            .get(0)
+            .getAsJsonObject();
+        return new Gson().fromJson(object, MarvelCharacter.class);
+    }
 }

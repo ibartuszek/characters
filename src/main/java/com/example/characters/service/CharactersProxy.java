@@ -76,4 +76,9 @@ public class CharactersProxy {
         return additionalUrlParameters;
     }
 
+    public JsonObject findById(final String id) {
+        String url = marvelUriBuilder.provide(REQUEST_URL + "/" + id, timeStamp);
+        ResponseEntity<String> response = new RestTemplate().getForEntity(url, String.class);
+        return new Gson().fromJson(response.getBody(), JsonObject.class);
+    }
 }
